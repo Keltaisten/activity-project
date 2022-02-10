@@ -28,42 +28,52 @@ public class Track {
 //                .mapToDouble(e->e)
 //                .sum();
 
-        return trackPoints.stream()
-                .map(TrackPoint::getElevation)
-                .map(new Function<Integer, Optional<Integer>>() {
-                    Optional<Integer> previousValue = Optional.empty();
-
-                    @Override
-                    public Optional<Integer> apply(Integer current) {
-                        Optional<Integer> value = previousValue.map(previous -> current - previous);
-                        previousValue = Optional.of(current);
-                        return value;
-                    }
-                })
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+        return IntStream.range(0, trackPoints.size() - 1)
+                .map(i -> trackPoints.get(i + 1).getElevation() - trackPoints.get(i).getElevation())
                 .filter(n -> n > 0)
-                .mapToInt(i -> i)
                 .sum();
+
+//        return trackPoints.stream()
+//                .map(TrackPoint::getElevation)
+//                .map(new Function<Integer, Optional<Integer>>() {
+//                    Optional<Integer> previousValue = Optional.empty();
+//
+//                    @Override
+//                    public Optional<Integer> apply(Integer current) {
+//                        Optional<Integer> value = previousValue.map(previous -> current - previous);
+//                        previousValue = Optional.of(current);
+//                        return value;
+//                    }
+//                })
+//                .filter(Optional::isPresent)
+//                .map(Optional::get)
+//                .filter(n -> n > 0)
+//                .mapToInt(i -> i)
+//                .sum();
     }
 
     public int getFullDecrease() {
-        return trackPoints.stream()
-                .map(TrackPoint::getElevation)
-                .map(new Function<Integer, Optional<Integer>>() {
-                    Optional<Integer> previousValue = Optional.empty();
+//        return trackPoints.stream()
+//                .map(TrackPoint::getElevation)
+//                .map(new Function<Integer, Optional<Integer>>() {
+//                    Optional<Integer> previousValue = Optional.empty();
+//
+//                    @Override
+//                    public Optional<Integer> apply(Integer current) {
+//                        Optional<Integer> value = previousValue.map(previous -> previous - current);
+//                        previousValue = Optional.of(current);
+//                        return value;
+//                    }
+//                })
+//                .filter(Optional::isPresent)
+//                .map(Optional::get)
+//                .filter(n -> n > 0)
+//                .mapToInt(i -> i)
+//                .sum();
 
-                    @Override
-                    public Optional<Integer> apply(Integer current) {
-                        Optional<Integer> value = previousValue.map(previous -> previous - current);
-                        previousValue = Optional.of(current);
-                        return value;
-                    }
-                })
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .filter(n -> n > 0)
-                .mapToInt(i -> i)
+        return IntStream.range(0, trackPoints.size() - 1)
+                .map(i -> trackPoints.get(i).getElevation() - trackPoints.get(i + 1).getElevation())
+                .filter(e -> e > 0)
                 .sum();
     }
 
@@ -79,6 +89,31 @@ public class Track {
         return IntStream.range(0, trackPoints.size() - 1)
                 .mapToDouble(i -> trackPoints.get(i + 1).getDistanceFrom(trackPoints.get(i)))
                 .sum();
+    }
+
+    public Coordinate findMinimumCoordinate() {
+//        trackPoints.stream()
+//                .map(TrackPoint::getCoordinate)
+//                .min()
+        return new Coordinate(trackPoints.stream()
+                .map(TrackPoint::getCoordinate)
+                .mapToDouble(Coordinate::getLatitude)
+                .min().getAsDouble(),
+                trackPoints.stream()
+                .map(TrackPoint::getCoordinate)
+                .mapToDouble(Coordinate::getLongitude)
+                .min().getAsDouble());
+    }
+
+    public Coordinate findMaximumCoordinate() {
+        return new Coordinate(trackPoints.stream()
+                .map(TrackPoint::getCoordinate)
+                .mapToDouble(Coordinate::getLatitude)
+                .max().getAsDouble(),
+                trackPoints.stream()
+                        .map(TrackPoint::getCoordinate)
+                        .mapToDouble(Coordinate::getLongitude)
+                        .max().getAsDouble());
     }
 
     public static void main(String[] args) {
