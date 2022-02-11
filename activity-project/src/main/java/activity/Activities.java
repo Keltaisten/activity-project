@@ -1,14 +1,10 @@
 package activity;
 
-import jdk.javadoc.doclet.Reporter;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Activities {
-    private List<Activity> activities = new ArrayList<>();
-    private List<Report> reports = new ArrayList<>();
+    private List<Activity> activities;
 
     public Activities(List<Activity> activities) {
         this.activities = activities;
@@ -16,13 +12,13 @@ public class Activities {
 
     public int numberOfTrackActivities() {
         return (int) activities.stream()
-                .filter(a -> a.getDistance() > 0)
+                .filter(ActivityWithTrack.class::isInstance)
                 .count();
     }
 
     public int numberOfWithoutTrackActivities() {
         return (int) activities.stream()
-                .filter(a -> a.getDistance() == 0)
+                .filter(ActivityWithoutTrack.class::isInstance)
                 .count();
     }
 

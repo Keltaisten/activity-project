@@ -1,7 +1,5 @@
 package activity;
 
-import java.util.PrimitiveIterator;
-
 public class ActivityWithoutTrack implements Activity  {
     private ActivityType activityType;
 
