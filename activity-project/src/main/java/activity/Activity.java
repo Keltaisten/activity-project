@@ -1,6 +1,8 @@
 package activity;
 
 public interface Activity {
-    int getDistance();
+    double getDistance();
     ActivityType getType();
+
+
 }

@@ -69,13 +69,13 @@ public class TrackTest {
         assertEquals(45.7, track.findMaximumCoordinate().getLongitude());
     }
 
-//    @Test
-//    public void testGetRectangleArea() {
-//        track.addTrackPoint(new TrackPoint(new Coordinate(12.5, 34.89), 123));
-//        track.addTrackPoint(new TrackPoint(new Coordinate(-12.5, 45.7), 124));
-//        track.addTrackPoint(new TrackPoint(new Coordinate(13.7, -6.0), 0));
-//        track.addTrackPoint(new TrackPoint(new Coordinate(3.67, -42.789), 200));
-//
-//        assertEquals(2318.4118, track.getRectangleArea());
-//    }
+    @Test
+    public void testGetRectangleArea() {
+        track.addTrackPoint(new TrackPoint(new Coordinate(12.5, 34.89), 123));
+        track.addTrackPoint(new TrackPoint(new Coordinate(-12.5, 45.7), 124));
+        track.addTrackPoint(new TrackPoint(new Coordinate(13.7, -6.0), 0));
+        track.addTrackPoint(new TrackPoint(new Coordinate(3.67, -42.789), 200));
+
+        assertEquals(2318.4118, track.getRectangleArea());
+    }
 }

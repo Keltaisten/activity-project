@@ -2,9 +2,9 @@ package activity;
 
 public class TrackPoint {
     private Coordinate coordinate;
-    private int elevation;
+    private double elevation;
 
-    public TrackPoint(Coordinate coordinate, int elevation) {
+    public TrackPoint(Coordinate coordinate, double elevation) {
         this.coordinate = coordinate;
         this.elevation = elevation;
     }
@@ -62,7 +62,7 @@ public class TrackPoint {
         return coordinate;
     }
 
-    public int getElevation() {
+    public double getElevation() {
         return elevation;
     }
 }
